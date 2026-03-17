@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+
+  mariadb:
+    image: mariadb:10.6
+    container_name: ec2-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Saurav123
+      MYSQL_DATABASE: student_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Saurav123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - ec2-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ec2-backend
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "8080:8080"
+    networks:
+      - ec2-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ec2-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - ec2-net
+
+volumes:
+  db_data:
+
+networks:
+  ec2-net:
