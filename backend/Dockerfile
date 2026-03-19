@@ -23,8 +23,5 @@ COPY --from=build /opt/target/student-registration-backend-0.0.1-SNAPSHOT.jar .
 # Expose the port
 EXPOSE 8080
 
-COPY wait-for-it.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/wait-for-it.sh
-
 # Run the jar
-CMD ["wait-for-it.sh", "mariadb:3306", "--", "java", "-jar", "student-registration-backend-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "student-registration-backend-0.0.1-SNAPSHOT.jar"]
