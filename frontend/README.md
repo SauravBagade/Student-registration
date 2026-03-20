@@ -1,4 +1,4 @@
-# CLOUDBLITZ Student Management Frontend
+Student Management Frontend
 
 A modern, scalable React application built with industry best practices for managing student registrations and data.
 
